@@ -2337,9 +2337,11 @@ export class PutCommandVisual extends BaseCommand {
       [start, end] = [end, start];
     }
 
-    const result = await new DeleteOperator(this.multicursorIndex).run(vimState, start, end, false);
+    // Put after the selection. Because we perform a yank with the delete (and
+    // typically override the register) we must do this first.
+    const result = await new PutCommand().exec(end.getRight(), vimState, true);
 
-    return await new PutCommand().exec(start, result, true);
+    return await new DeleteOperator(this.multicursorIndex).run(result, start, end, true);
   }
 
   // TODO - execWithCount

@@ -1147,6 +1147,13 @@ suite("Mode Normal", () => {
     });
 
     newTest({
+      title: "p yanks deleted selection",
+      start: ["|abc def"],
+      keysPressed: "dewvep0P",
+      end: ["de|f abc"]
+    });
+
+    newTest({
       title: "can handle p in visual to end of line",
       start: ["1234 |5678", "test test"],
       keysPressed: "vllllyjvllllp",
